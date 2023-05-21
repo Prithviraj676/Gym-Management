@@ -1,0 +1,100 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .flex-container {
+            display: flex;
+            background-color: DodgerBlue;
+
+            margin: auto;
+        }
+    </style>
+
+</head>
+
+<body>
+ 
+</body>
+
+
+<script type="module">
+
+    import * as authen from "./auth.js";
+
+    // Get the UID parameter from the URL
+    var urlParams = new URLSearchParams(window.location.search);
+    var uid = urlParams.get('uid');
+
+    var plan_500 = document.getElementById('500');
+    var plan_700 = document.getElementById('700');
+    var plan_1000 = document.getElementById('1000');
+    var plan_1200 = document.getElementById('1200');
+
+
+
+    var arr = [500, 700, 1000, 1200];
+    var p_divi = document.createElement("div");
+
+    p_divi.className = 'flex-container';
+
+
+
+    arr.forEach(element => {
+        var divi = document.createElement("div");
+        var para = document.createElement("p");
+        var bttn = document.createElement("button");
+        para.textContent = "Subscription plan for ₹"+ element;
+        bttn.textContent = 'Subscribe';
+
+        // Button Div
+        bttn.style.backgroundColor = 'blue';
+        bttn.style.color = 'white';
+        bttn.style.padding = '10px';
+        bttn.style.marginTop = '30%';
+        bttn.style.borderRadius = '4px';
+        bttn.style.textAlign = 'right';
+        bttn.style.position = 'absolute';
+
+        // Child Div
+        p_divi.appendChild(divi); 
+        divi.style.borderRadius = '4px';
+        divi.style.backgroundColor = 'lightgoldenrodyellow';
+        divi.style.padding = '10%';  
+        divi.style.marginLeft = '.5%';
+        divi.style.marginRight = '1%';
+        divi.style.height = '80px';
+        divi.style.width = '70px';
+        divi.style.position = 'relative';
+
+        // Parent Div
+        p_divi.style.borderRadius = '4px';
+        p_divi.style.marginTop = '15%';
+        p_divi.style.paddingLeft = '30%';
+        p_divi.style.padding = '40px 45px 40px 45px';
+
+        divi.appendChild(para);
+        divi.appendChild(bttn);
+
+        bttn.addEventListener('click', async (e) => {
+            var date = new Date();
+            var subDate = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
+            // var subDate = date.getDate();
+            console.log()
+            await authen.db.setDoc(authen.db.doc(authen.fs, "User", uid), {
+                'plan': element,
+                'subDate': subDate
+            }, { merge: true });
+
+        });
+    });
+    
+    document.body.appendChild(p_divi);
+
+</script>
+
+
+</html>

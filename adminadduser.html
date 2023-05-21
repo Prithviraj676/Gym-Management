@@ -1,0 +1,42 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+
+  <input type="text" id="name" placeholder="Name">
+  <input type="text" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
+  <br><br>
+  <button type="button" id="signup">Add User</button>
+
+  <script type="module">
+
+    import * as authen from "./auth.js";
+
+    // button instance
+    var signup = document.getElementById('signup');
+
+    // button listener
+    signup.addEventListener('click', (e) => {
+
+      var name = document.getElementById('name').value;
+      var email = document.getElementById('email').value;
+      var password = document.getElementById('password').value;
+
+      authen.createUser(name, email, password);
+
+    });
+
+  </script>
+
+
+</body>
+
+</html>

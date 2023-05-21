@@ -1,0 +1,51 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <form action="adminadduser.html" method="get">
+
+        <button type="submit" id="signup">Add User</button>
+
+    </form>
+
+    <button id="users">Users</button>
+
+    <script type="module">
+
+        import * as authen from "./auth.js";
+        import * as db from "https://www.gstatic.com/firebasejs/9.20.0/firebase-firestore.js";
+
+        let log = console.log;
+
+        var users = document.getElementById('users');
+        users.addEventListener('click', (e) => {
+            db.getDocs(db.collection(authen.fs, "User")).then(async (qs) => {
+                    
+                    log('worked');
+                    
+                    qs.docs.forEach(element => {
+                        var name = document.createElement("p");
+                        var email = document.createElement("p");
+                        name.innerHTML = element.data().name;
+                        email.innerHTML = element.data().email
+                        document.body.appendChild(name);
+                        document.body.appendChild(email);
+
+                    });
+
+                });
+            });
+
+    </script>>
+
+
+</body>
+
+</html>
